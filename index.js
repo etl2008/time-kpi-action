@@ -2,13 +2,15 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 var sys = require('sys')
 var exec = require('child_process').exec;
+const perf = require('execution-time')();
 
 try {
     // `who-to-greet` input defined in action metadata file
     const commandToRun = core.getInput('command');
     console.log(`Command: ${commandToRun}`);
 
-    var startTime = process.hrtime();
+    //var startTime = process.hrtime();
+    perf.start('Comand Exec');
 
     exec(`${commandToRun}`, (error, stdout, stderr) => {
         if (error) {
@@ -18,8 +20,8 @@ try {
         //console.log(`stdout: ${stdout}`);
         //console.error(`stderr: ${stderr}`);
       });
-
-      var elapsedSeconds = parseHrtimeToSeconds(process.hrtime(startTime));
+    const elapsedSeconds = perf.stop('Comand Exec');
+    //var elapsedSeconds = parseHrtimeToSeconds(process.hrtime(startTime));
 	console.log(`Command execution took: ${elapsedSeconds}`);
     core.setOutput("Command execution took - ", elapsedSeconds);
     // Get the JSON webhook payload for the event that triggered the workflow
