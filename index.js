@@ -20,7 +20,8 @@ try {
         //console.log(`stdout: ${stdout}`);
         //console.error(`stderr: ${stderr}`);
       });
-    const elapsedSeconds = perf.stop('Comand Exec');
+    const result = perf.stop('Comand Exec');
+    var elapsedSeconds = result.time * 1000
     //var elapsedSeconds = parseHrtimeToSeconds(process.hrtime(startTime));
 	console.log(`Command execution took: ${elapsedSeconds}`);
     core.setOutput("Command execution took - ", elapsedSeconds);
