@@ -1,0 +1,13 @@
+name: 'Time kpi'
+description: 'desc'
+inputs:
+  command:  # id of input
+    description: 'The command to run'
+    required: true
+    default: 'ls'
+outputs:
+  time: # id of output
+    description: 'The time of the execution'
+runs:
+  using: 'node12'
+  main: 'index.js'
